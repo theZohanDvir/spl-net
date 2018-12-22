@@ -11,6 +11,7 @@ import java.io.IOException;
 /**
  * The ConnectionHandler interface for Message of type T
  */
-public interface ConnectionHandler<T> extends Closeable {
-    void send(T msg) ;
+public interface ConnectionHandler<T> extends Closeable
+{
+    void send ( T msg );
 }
