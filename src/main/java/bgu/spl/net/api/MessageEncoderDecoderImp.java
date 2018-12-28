@@ -146,20 +146,27 @@ public class MessageEncoderDecoderImp implements MessageEncoderDecoder
             else
                 followUnfollow = true;
             num = (int) ( message.charAt( 3 ) ) * 10 + (int) ( message.charAt( 4 ) );
-            int j = 0;
-            List<String> list = new ArrayList<>();
-            for ( int i = 5 ; i < message.length() ; i++ )
+            String str = "";
+            for ( int i = 6 ; i < message.length() ; i++ )
             {
-
+                if ( message.charAt( i ) != ' ' )
+                    str += message.charAt( i );
+                else
+                {
+                    stringConcurrentLinkedQueue.add( str );
+                    str = "";
+                }
             }
+            return new Follow( followUnfollow,num,stringConcurrentLinkedQueue );
         }
+        return null;
     }
 
     private Object POST ()
     {
         String str = "";
         Boolean flag = false;
-        if ( message.charAt( message.length() - 1 ) == '0'  && message.length()>= 3)
+        if ( message.charAt( message.length() - 1 ) == '0' && message.length() >= 3 )
         {
             ConcurrentLinkedQueue<String> tagedUsers = new ConcurrentLinkedQueue<String>();
             for ( int i = 2 ; i < message.length() - 1 ; i++ )
@@ -212,17 +219,17 @@ public class MessageEncoderDecoderImp implements MessageEncoderDecoder
 
     private Object USERLIST ()
     {
-        return  null;
+        return null;
     }
 
     private Object STAT ()
     {
-        if ( message.length() >= 4 && message.charAt( message.length()-1 )=='0')
+        if ( message.length() >= 4 && message.charAt( message.length() - 1 ) == '0' )
         {
             String str = "";
-            for ( int i = 2 ; i < message.length()-1 ; i++ )
+            for ( int i = 2 ; i < message.length() - 1 ; i++ )
             {
-                str+=message.charAt( i );
+                str += message.charAt( i );
             }
             return new STAT( str );
         }
