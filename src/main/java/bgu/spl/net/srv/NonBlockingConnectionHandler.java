@@ -27,7 +27,7 @@ public class NonBlockingConnectionHandler<T> implements ConnectionHandler<T>
             MessagingProtocol<T> protocol,
             SocketChannel chan,
             Reactor reactor )
-    {
+        {
         this.chan = chan;
         this.encdec = reader;
         this.protocol = protocol;
